@@ -1,8 +1,8 @@
 export const load = async ({ fetch }) => {
 	const response = await fetch(`/api/docs`);
-	const sections = await response.json();
+	const pages = await response.json();
 
 	return {
-		sections
+		pages
 	};
 };

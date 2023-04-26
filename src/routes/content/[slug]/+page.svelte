@@ -1,6 +1,7 @@
 <script>
   export let data
   const { title, date, Content } = data
+  
 </script>
 
 <article>
@@ -10,7 +11,7 @@
 </article>
 
 
-{#if data.categories.length}
+<!-- {#if data.categories.length}
   <aside>
     <h2>Posted in:</h2>
     <ul>
@@ -23,4 +24,4 @@
       {/each}
     </ul>
   </aside>
-{/if}
+{/if} -->
