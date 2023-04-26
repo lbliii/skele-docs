@@ -1,6 +1,11 @@
 <script>
   export let data
-  const { title, date, Content } = data
+  const { title, date, Content, url } = data
+
+  $: {
+    url
+    console.log(url)
+  }
   
 </script>
 
