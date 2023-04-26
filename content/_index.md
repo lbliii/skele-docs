@@ -2,4 +2,4 @@
 title: Content
 ---
 
-##  Hello World what's up?
+This is the content page.
