@@ -22,6 +22,9 @@
 	function drawerOpen(): void {
 		drawerStore.open({});
 	}
+
+	export let data 
+	console.log(data)
 </script>
 
 <AppShell 
@@ -52,7 +55,7 @@ slotSidebarRight="p-2">
 		</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		<Navigation />
+		<Navigation sections={data.sections}/>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
 	<svelte:fragment slot="pageHeader">Page Header</svelte:fragment>
