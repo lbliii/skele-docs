@@ -1,16 +1,23 @@
-<script>
+<script lang="ts">
   export let data
-  const { title, date, Content } = data
+
+  let title, date, Content, url;
+
+  $: {
+    ({ title, date, Content, url } = data);
+    console.log(data);
+  }
+
 </script>
 
 <article>
   <h1>{title}</h1>
   <p>Published: {date}</p>
-  <Content />
+  <svelte:component this={Content} />
 </article>
 
 
-{#if data.categories.length}
+<!-- {#if data.categories.length}
   <aside>
     <h2>Posted in:</h2>
     <ul>
@@ -23,4 +30,4 @@
       {/each}
     </ul>
   </aside>
-{/if}
+{/if} -->

@@ -1,5 +1,5 @@
 ---
-title: example
+title: Example
 ---
 
-this is an example
+This is the example page.
