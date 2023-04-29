@@ -6,6 +6,7 @@ categories:
   - sveltekit
   - svelte
 published: true
+weight: 3
 ---
 
 ## Meow

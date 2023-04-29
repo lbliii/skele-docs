@@ -6,6 +6,7 @@ categories:
   - sveltekit
   - svelte
 published: true
+weight: 2
 ---
 
 ## Svelte
