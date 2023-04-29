@@ -8,13 +8,27 @@ async function getPosts() {
 
 	for (const path in paths) {
 		const file = paths[path];
-		const slugParts = path.split('/').slice(2,5);
-		const slug = slugParts.join('/').replace('.md', '');
-		
+		const slugParts = path.split('/').slice(2);
+		let slug = slugParts.join('/').replace('.md', '');
+
+		// If this is an _index.md file, treat it as a directory and remove the filename
+		if (slug.endsWith('/_index')) {
+			slug = slug.replace('/_index', '');
+		} else {
+			slug = slug.replace('.md', '');
+		}
+
+		let content = file.default;
+		if (slug.endsWith('/')) {
+			const indexFile = paths[`${path}_index.md`];
+			if (indexFile && typeof indexFile === 'object' && 'default' in indexFile) {
+				content = indexFile.default;
+			}
+		}
 
 		if (file && typeof file === 'object' && 'metadata' in file && slug) {
 			const metadata = file.metadata as Omit<Post, 'slug'>;
-			const post = { ...metadata, slug } satisfies Post;
+			const post = { ...metadata, slug, content } as Post;
 			post.published && posts.push(post);
 		}
 	}
@@ -27,6 +41,10 @@ async function getPosts() {
 }
 
 export async function GET() {
-	const posts = await getPosts();
-	return json(posts);
+	try {
+		const posts = await getPosts();
+		return json(posts);
+	} catch {
+		return json({ message: 'An error occurred while fetching the posts.' }, 500);
+	}
 }

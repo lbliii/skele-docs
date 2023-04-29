@@ -1,15 +1,17 @@
 <script lang="ts">
+	import type { Post } from '$lib/types';
 
-	export let pages
+	export let posts: Post[] = [];
 
 </script>
 
 <nav class="list-nav p-4">
 	<ul>
-		{#each pages as {path, meta}}
-			<li>
-				<a href="{path}">
-					{meta.title}
+		{#each posts as {slug, title}, i}
+
+			<li >
+				<a href="/{slug}">
+					{title}
 				</a>
 			</li>
 		{/each}

@@ -3,7 +3,9 @@
 	import * as config from '$lib/config'
 
 	export let data
-    console.log(data)
+
+	$: data
+	console.log(data)
 </script>
 
 <svelte:head>

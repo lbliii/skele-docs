@@ -55,7 +55,7 @@ slotSidebarRight="p-2">
 		</AppBar>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarLeft">
-		<!-- <Navigation pages={data.pages}/> -->
+		<Navigation posts={data.posts}/>
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
 	<svelte:fragment slot="pageHeader">Page Header</svelte:fragment>
