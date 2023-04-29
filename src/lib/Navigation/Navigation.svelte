@@ -6,15 +6,23 @@
   const nestedPosts: { [section: string]: Post[] } = {};
   posts.forEach(post => {
     const slugParts = post.slug.split('/');
-    const topLevelSlug = slugParts[0];
-    if (!nestedPosts[topLevelSlug]) {
-      nestedPosts[topLevelSlug] = [post];
+    const lvl0 = slugParts[0];
+    if (!nestedPosts[lvl0]) {
+      nestedPosts[lvl0] = [post];
     } else {
-      nestedPosts[topLevelSlug].push(post);
+      nestedPosts[lvl0].push(post); 
     }
   });
 
-  console.log(nestedPosts);
+  Object.keys(nestedPosts).forEach(section => {
+    if (nestedPosts[section].length > 2) {
+      nestedPosts[section].shift();
+      nestedPosts[section].sort((a, b) => a.weight - b.weight);
+    }
+  });
+
+  console.log(nestedPosts)
+
 </script>
 
 <nav class="list-nav p-4">
@@ -24,15 +32,17 @@
         <a href="/{section}" class="">
           {section}
         </a>
-        <ul>
-          {#each nestedPosts[section].slice(1) as post}
-            <li>
-              <a href="{post.slug}" class="text-sm ml-2">
-                {post.title}
-              </a>
-            </li>
-          {/each}
-        </ul>
+        {#if nestedPosts[section].length > 1}
+          <ul>
+            {#each nestedPosts[section].slice(0) as {slug, title}}
+              <li>
+                <a href="/{slug}" class="text-sm ml-2">
+                  {title}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        {/if}
       </li>
     {/each}
   </ul>
