@@ -1,33 +1,34 @@
 <script lang="ts">
-  export let data
+	import { formatDate } from '$lib/utils'
 
-  let title, date, Content, url;
-
-  $: {
-    ({ title, date, Content, url } = data);
-    console.log(data);
-  }
-
+	export let data
+	console.log(data)
 </script>
 
+<!-- SEO -->
+<svelte:head>
+	<title>{data.meta.title}</title>
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content={data.meta.title} />
+</svelte:head>
+
 <article>
-  <h1>{title}</h1>
-  <p>Published: {date}</p>
-  <svelte:component this={Content} />
+  <!-- Title -->
+	<hgroup>
+		<h1>{data.meta.title}</h1>
+		<p>Published at {formatDate(data.meta.date)}</p>
+	</hgroup>
+
+  <!-- Tags -->
+	<div class="tags">
+		{#each data.meta.categories as category}
+			<span class="surface-4">&num;{category}</span>
+		{/each}
+	</div>
+
+  <!-- Post -->
+	<div class="">
+		<svelte:component this={data.content} />
+	</div>
 </article>
 
-
-<!-- {#if data.categories.length}
-  <aside>
-    <h2>Posted in:</h2>
-    <ul>
-      {#each data.categories as category}
-        <li>
-          <a href="/content/section/{category}">
-            {category}
-          </a>
-        </li>
-      {/each}
-    </ul>
-  </aside>
-{/if} -->

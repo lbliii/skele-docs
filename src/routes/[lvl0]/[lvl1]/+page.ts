@@ -1,15 +1,14 @@
+import { error } from '@sveltejs/kit';
 
-export async function load({ params, url }) {
-	const post = await import(`../../../../${params.lvl0}/${params.lvl1}`);
-	const { title, date, categories } = post.metadata;
-	const Content = post.default;
+export async function load({ params }) {
+	try {
+		const post = await import(`../../../../content/${params.lvl0}/${params.lvl1}.md`);
 
-	return {
-		Content,
-		title,
-		date,
-        categories,
-		url: url.href
-
-	};
+		return {
+			content: post.default,
+			meta: post.metadata
+		};
+	} catch (e) {
+		throw error(404, `Could not find ${params.lvl0}/${params.lvl1}`);
+	}
 }
